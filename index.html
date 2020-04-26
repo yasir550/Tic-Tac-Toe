@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <!-- container -->
+    <div class="container">
+        <!-- board -->
+        <div class="board">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <!-- container -->
+      
+    <!-- jQuery source -->
+    <script src="jquery-3.4.1.min.js"></script>
+    
+    <!-- script starts from here -->
+    <script>
+
+        
+
+        let turn = 1;
+
+        play = true;
+
+        // method to load function on clicking any of the field
+        $(".board ul li").on("click",function()
+        {
+            // condition to check thT the field is empty
+            if($(this).text("") && play)
+            {
+                // this condition will b true if the move is belong to player one
+                if(turn%2==1)
+                {
+                    $(this).append("P1");
+                    $(this).css("color","green");
+                }
+                // this condition will b true if the move is belong to playertwo
+                else
+                {
+                    $(this).append("P2");
+                    $(this).css("color","red");
+                }
+                turn++;
+
+                // condition to check the winner if three fields in line are not empty
+                if(winner() != -1 && winner() != "")
+                {
+                    // this will true if player one wins
+                    if(winner() == "P1")
+                    {
+                        $(".board").before('<div class="winner">Winner<span>P1</span></div>')
+                        $(".board").after('<button onclick="location.reload();">Reset Game</button>')
+                    }
+                    // this will true if player two wins
+                    else
+                    {
+                        $(".board").before('<div class="winner">Winner<span>P2</span></div>')
+                        $(".board").after('<button onclick="location.reload();">Reset Game</button>')
+                    }
+                    play = false;
+                }
+            }
+        });
+         
+        //  function to load after three consective fields (row-wise, column-wise or diagnol) have same text in them
+        function winner()
+        {
+             bx1 = $(".board ul li:nth-child(1)").text();
+             bx2 = $(".board ul li:nth-child(2)").text();
+             bx3 = $(".board ul li:nth-child(3)").text();
+             bx4 = $(".board ul li:nth-child(4)").text();
+             bx5 = $(".board ul li:nth-child(5)").text();
+             bx6 = $(".board ul li:nth-child(6)").text();
+             bx7 = $(".board ul li:nth-child(7)").text();
+             bx8 = $(".board ul li:nth-child(8)").text();
+             bx9 = $(".board ul li:nth-child(9)").text();
+             
+            if((bx1==bx2) && (bx2==bx3)){return bx3;}
+            else if((bx4 == bx5) && (bx5 == bx6)){return bx6;}
+            else if((bx7==bx8) && (bx8==bx9)){return bx9;}
+            else if((bx1==bx4) && (bx4==bx7)){return bx7;}
+            else if((bx2==bx5) && (bx5==bx8)){return bx8;}
+            else if((bx3==bx6) && (bx6==bx9)){return bx9;}
+            else if((bx1==bx5) && (bx5==bx9)){return bx9;}
+            else if ((bx3==bx5) && (bx5==bx7)){return bx7;}
+
+            return -1;
+        }    
+            
+    </script>
+</body>
+</html>
